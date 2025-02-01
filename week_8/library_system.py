@@ -1,5 +1,11 @@
 import mysql.connector
 
+""" try:
+    mydb = connect_database()
+    mycursor = mydb.cursor()
+except NameError as e:
+    print(e) """
+
 
 def connect_database():
     # Replace with your connection details
@@ -23,16 +29,17 @@ def display_books():
 
 
 def search_book(title):
-    sql = "SELECT * FROM Books WHERE Title = %s OR Author = %s OR ISBN = %s"
-    val = (title,)
+    sql = "SELECT * FROM Books WHERE Title = %s"
+    val = [title]
     mycursor.execute(sql, val)
     return mycursor.fetchall()
 
 
 def delete_book(ID):
     sql = "DELETE FROM Books WHERE ID = %s"
-    val = (ID,)
+    val = [ID]
     mycursor.execute(sql, val)
+    mydb.commit()
 
 
 def create_table():
@@ -48,19 +55,17 @@ def create_table():
 
 
 mydb = connect_database()
-
-
 mycursor = mydb.cursor()
+
 
 # Execute SQL statements using the execute() method on the cursor
 
 
 # add_book(2, "Semper", "Samad", "3GDH12")
 # result = search_book("Semper fi")
-delete_book(2)
-result = display_books()
+# delete_book(2)
 
-create_table()
+result = display_books()
 
 if len(result) == 0:
     print("No books")

@@ -1,7 +1,8 @@
 import mysql.connector
 
 
-"CREATE DATABASE IF NOT EXISTS alx_book_store"
+""" CREATE DATABASE IF NOT EXISTS alx_book_store
+ """
 
 
 def connect_database():
